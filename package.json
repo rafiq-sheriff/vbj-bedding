@@ -1,30 +1,18 @@
 {
-  "name": "figma-make-app",
+  "name": "vbj-bedding",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "packageManager": "pnpm@10.28.0",
   "scripts": {
     "dev": "next dev",
-    "build": "payload build",
+    "build": "next build",
     "start": "next start",
-    "format": "oxfmt",
-    "generate:importmap": "payload generate:importmap",
-    "generate:types": "payload generate:types",
-    "payload": "payload"
+    "format": "oxfmt"
   },
   "dependencies": {
-    "@payloadcms/figma": "1.0.0-beta.1",
-    "@payloadcms/next": "4.0.0-beta.4",
-    "@payloadcms/plugin-cloud-storage": "4.0.0-beta.4",
-    "@payloadcms/plugin-mcp": "4.0.0-beta.4",
-    "@payloadcms/richtext-lexical": "4.0.0-beta.4",
-    "@payloadcms/translations": "4.0.0-beta.4",
-    "@payloadcms/ui": "4.0.0-beta.4",
-    "graphql": "^16.8.1",
     "html-react-parser": "^5.2.10",
-    "monaco-editor": "0.55.1",
     "next": "16.4.2",
-    "payload": "4.0.0-beta.4",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "sharp": "^0.35.4"
@@ -40,7 +28,7 @@
     "typescript": "6.0.3"
   },
   "engines": {
-    "node": ">=24.0.0",
+    "node": "24.x",
     "pnpm": "^9 || ^10 || ^11"
   },
   "pnpm": {

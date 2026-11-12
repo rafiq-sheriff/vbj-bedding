@@ -41,9 +41,8 @@ export default function PrivacyPage() {
               Data Storage &amp; Security
             </h2>
             <p>
-              Enquiry submissions are stored securely in the website&apos;s private content
-              management system with restricted administrative access and are never displayed
-              publicly on the site.
+              Enquiry submissions are reviewed privately by our consultation team solely to respond
+              to your request and are never displayed publicly on the site.
             </p>
           </div>
           <div>

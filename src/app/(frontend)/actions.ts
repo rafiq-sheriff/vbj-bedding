@@ -1,8 +1,5 @@
 'use server'
 
-import config from '@payload-config'
-import { getPayload } from 'payload'
-
 export type EnquiryState = {
   success: boolean
   message: string
@@ -19,7 +16,7 @@ export async function submitEnquiry(
   _previousState: EnquiryState,
   formData: FormData,
 ): Promise<EnquiryState> {
-  // Silently accept honeypot triggers without creating a database record.
+  // Silently accept honeypot triggers without forwarding a submission.
   if (value(formData, 'company')) {
     return {
       success: true,
@@ -54,19 +51,28 @@ export async function submitEnquiry(
     return { success: false, message: 'Please review the highlighted fields.', errors }
   }
 
+  const payload = {
+    name,
+    phone,
+    email: email || undefined,
+    interest: interest as (typeof interests)[number],
+    message,
+    submittedAt: new Date().toISOString(),
+  }
+
   try {
-    const payload = await getPayload({ config })
-    await payload.create({
-      collection: 'enquiries',
-      overrideAccess: false,
-      data: {
-        name,
-        phone,
-        email: email || undefined,
-        interest: interest as (typeof interests)[number],
-        message,
-      },
-    })
+    const webhookUrl = process.env.ENQUIRY_WEBHOOK_URL
+    if (webhookUrl) {
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+      if (!response.ok) {
+        throw new Error(`Enquiry webhook returned ${response.status}`)
+      }
+    }
+
     return {
       success: true,
       message: 'Thank you. Your enquiry has been received and our Chennai team will follow up.',
